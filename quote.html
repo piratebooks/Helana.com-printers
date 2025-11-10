@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Request a Quote | Helana.com Printers</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/helanalogo.png" rel="icon">
+  <link href="assets/img/helanalogo.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    /* Custom styling for the Request a Quote section */
+    .request-quote {
+      padding: 60px 0;
+    }
+
+    .request-quote .section-header h2 {
+      font-weight: 700;
+    }
+
+    /* Form layout improvements */
+    .request-quote form {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Form sections with visual separation */
+    .form-section {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-section h3 {
+      color: #0d6efd;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 1.25rem;
+    }
+
+    /* Form grid for better organization */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Extra fields styling */
+    .extra-fields {
+      display: none;
+      gap: 1rem;
+      width: 100%;
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      border-left: 4px solid #0d6efd;
+    }
+
+    .extra-fields.active {
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Make textarea full width */
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* Submit button styling */
+    .submit-btn {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .request-quote button[type="submit"] {
+      background-color: #0d6efd;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-size: 1.1rem;
+      transition: 0.3s;
+      border-radius: 6px;
+    }
+
+    .request-quote button[type="submit"]:hover {
+      background-color: #0b5ed7;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form labels styling */
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #495057;
+    }
+
+    /* Required field indicator */
+    .required::after {
+      content: " *";
+      color: #dc3545;
+    }
+
+    /* Form control focus styling */
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+
+    /* Progress indicator */
+    .progress-indicator {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 1rem;
+      position: relative;
+    }
+
+    .progress-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      right: -50%;
+      width: 100%;
+      height: 2px;
+      background-color: #dee2e6;
+      z-index: 1;
+    }
+
+    .progress-step.active:not(:last-child)::after {
+      background-color: #0d6efd;
+    }
+
+    .step-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #dee2e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+      z-index: 2;
+      font-weight: 500;
+    }
+
+    .progress-step.active .step-number {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .step-label {
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+
+    .progress-step.active .step-label {
+      color: #0d6efd;
+      font-weight: 500;
+    }
+
+    /* Form step styling */
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Navigation buttons */
+    .form-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    /* Help text */
+    .help-text {
+      font-size: 0.875rem;
+      color: #6c757d;
+      margin-top: 0.25rem;
+    }
+
+    /* Success message */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: #d1edff;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+
+    .success-message i {
+      font-size: 3rem;
+      color: #0d6efd;
+      margin-bottom: 1rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-step:not(:last-child)::after {
+        right: -40%;
+      }
+    }
+  </style>
+</head>
+
+<body class="starter-page-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">Helana.com Printers</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="service-details.html">Services</a></li>
+          <li><a href="index.html#portfolio">Portfolio</a></li>
+          <li><a href="#">Request a Quote</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title accent-background">
+      <div class="container">
+        <h1>Request a quote here!</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Quotation page</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Request a Quote Section -->
+    <section id="request-quote" class="request-quote section">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header text-center mb-5">
+          <h2>Request a Quote</h2>
+          <p>Fill out the form below and we'll get back to you with a personalized quote.</p>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+          <div class="progress-step active" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-label">Project Details</div>
+          </div>
+          <div class="progress-step" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-label">Contact Info</div>
+          </div>
+          <div class="progress-step" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-label">Review & Submit</div>
+          </div>
+        </div>
+
+        <form id="quoteForm" action="send-quote.php" method="POST" enctype="multipart/form-data"
+          class="php-email-form p-4 rounded shadow-sm bg-light">
+
+          <!-- Step 1: Project Details -->
+          <div class="form-step active" id="step1">
+            <div class="form-section">
+              <h3>Project Details</h3>
+
+              <div class="mb-4">
+                <label for="printType" class="form-label required">Type of Print</label>
+                <select id="printType" name="printType" class="form-select" required>
+                  <option value="" selected disabled>Choose a print type...</option>
+                  <option value="book order">Book Order</option>
+                  <option value="book order+binding">Book Order + Binding</option>
+                  <option value="hard binding">Hard Binding</option>
+                  <option value="plan print">Plan Print</option>
+                  <option value="graphic design">Graphic Design</option>
+                  <option value="mug print">Mug Print</option>
+                  <option disabled>──────────────</option>
+                  <option value="UV - keytag">UV - Keytag</option>
+                  <option value="UV - bottle">UV - Bottle</option>
+                  <option value="UV - pen">UV - Pen</option>
+                  <option value="UV - tile">UV - Tile</option>
+                  <option value="UV - plain glass">UV - Plain Glass</option>
+                  <option disabled>──────────────</option>
+                  <option value="screen printing">Screen Printing</option>
+                  <option value="typesetting">Typesetting</option>
+                </select>
+                <div class="help-text">Select the type of printing service you need</div>
+              </div>
+
+              <!-- Book Order Extra Fields -->
+              <div id="bookOrderFields" class="extra-fields">
+                <div class="form-grid">
+                  <div>
+                    <label for="pageSizing" class="form-label">Page Sizing</label>
+                    <select id="pageSizing" name="pageSizing" class="form-select">
+                      <option value="" selected disabled>Choose page size...</option>
+                      <option value="A3">A3 (297 x 420 mm)</option>
+                      <option value="A4">A4 (210 x 297 mm)</option>
+                      <option value="A5">A5 (148 x 210 mm)</option>
+                      <option value="A6">A6 (105 x 148 mm)</option>
+                      <option value="Letter">Letter (8.5 x 11 inches)</option>
+                      <option value="Legal">Legal (8.5 x 14 inches)</option>
+                      <option value="Custom">Custom Size</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="noOfPages" class="form-label">Number of Pages</label>
+                    <input type="number" id="noOfPages" name="noOfPages" class="form-control"
+                      placeholder="Enter number of pages" min="1">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Book Order + Binding Extra Fields -->
+              <div id="bookOrderBindingFields" class="extra-fields">
+                <div class="form-grid">
+                  <div>
+                    <label for="pageSizingBinding" class="form-label">Page Sizing</label>
+                    <select id="pageSizingBinding" name="pageSizingBinding" class="form-select">
+                      <option value="" selected disabled>Choose page size...</option>
+                      <option value="A3">A3 (297 x 420 mm)</option>
+                      <option value="A4">A4 (210 x 297 mm)</option>
+                      <option value="A5">A5 (148 x 210 mm)</option>
+                      <option value="A6">A6 (105 x 148 mm)</option>
+                      <option value="Letter">Letter (8.5 x 11 inches)</option>
+                      <option value="Legal">Legal (8.5 x 14 inches)</option>
+                      <option value="Custom">Custom Size</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="noOfPagesBinding" class="form-label">Number of Pages</label>
+                    <input type="number" id="noOfPagesBinding" name="noOfPagesBinding" class="form-control"
+                      placeholder="Enter number of pages" min="1">
+                  </div>
+                  <div>
+                    <label for="bindingType" class="form-label">Binding Type</label>
+                    <select id="bindingType" name="bindingType" class="form-select">
+                      <option value="" selected disabled>Choose binding type...</option>
+                      <option value="soft">Soft Binding</option>
+                      <option value="hard">Hard Binding</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div>
+                  <label for="quantity" class="form-label required">Quantity</label>
+                  <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Enter quantity"
+                    min="1" required>
+                  <div class="help-text">How many copies do you need?</div>
+                </div>
+                <div>
+                  <label for="purpose" class="form-label required">Purpose</label>
+                  <select id="purpose" name="purpose" class="form-select" required>
+                    <option value="" selected disabled>Choose purpose...</option>
+                    <option value="education">Education/School</option>
+                    <option value="business">Business/Corporate</option>
+                    <option value="religious">Religious</option>
+                    <option value="personal">Personal</option>
+                    <option value="project">Project/Assignment</option>
+                    <option value="government">Government</option>
+                    <option value="event">Event/Wedding</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>Project Description</h3>
+              <div>
+                <label for="message" class="form-label required">Additional Details</label>
+                <textarea id="message" name="message" rows="5" class="form-control"
+                  placeholder="Describe your requirements, specifications, deadlines, or any special instructions..."
+                  required></textarea>
+                <div class="help-text">The more details you provide, the more accurate our quote will be</div>
+              </div>
+            </div>
+
+            <!-- File upload field -->
+            <div class="form-section" style="display: block !important;">
+              <h3>File Attachments</h3>
+              <div class="mb-3">
+                <label for="attachments" class="form-label">Upload Files</label>
+                <input type="file" name="attachments[]" id="attachments" class="form-control" multiple
+                  style="display: block !important;">
+                <small class="form-text text-muted">You can select multiple files (images, documents, designs) to help
+                  us provide a more accurate quote.</small>
+              </div>
+            </div>
+
+            <div class="form-navigation">
+              <div></div> <!-- Empty div for spacing -->
+              <button type="button" class="btn btn-primary next-step" data-next="2">Next: Contact Info</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Contact Information -->
+          <div class="form-step" id="step2">
+            <div class="form-section">
+              <h3>Contact Information</h3>
+              <div class="form-grid">
+                <div>
+                  <label for="name" class="form-label required">Name</label>
+                  <input type="text" id="name" name="name" class="form-control" placeholder="Anita Ranasinghe" required>
+                </div>
+                <div>
+                  <label for="email" class="form-label required">Email</label>
+                  <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com"
+                    required>
+                </div>
+                <div>
+                  <label for="phone" class="form-label required">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" class="form-control" placeholder="+94 711 414 103" required>
+                </div>
+                <div>
+                  <label for="contactMethod" class="form-label required">Preferred Method of Contact</label>
+                  <select id="contactMethod" name="contactMethod" class="form-select" required>
+                    <option value="" selected disabled>Choose contact method...</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-navigation">
+              <button type="button" class="btn btn-outline-secondary prev-step" data-prev="1">Back</button>
+              <button type="button" class="btn btn-primary next-step" data-next="3">Next: Review & Submit</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Review and Submit -->
+          <div class="form-step" id="step3">
+            <div class="form-section">
+              <h3>Review Your Information</h3>
+              <div class="mb-4">
+                <p>Please review your information before submitting. We'll contact you within 24 hours with your quote.
+                </p>
+              </div>
+
+              <div class="review-summary p-3 bg-light rounded mb-4">
+                <h5>Project Summary</h5>
+                <div id="reviewContent"></div>
+              </div>
+
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                <label class="form-check-label" for="agreeTerms">
+                  I agree to the <a href="#" target="_blank">terms and conditions</a> and understand that this is a
+                  quote request, not an order.
+                </label>
+              </div>
+            </div>
+
+            <div class="form-navigation">
+              <button type="button" class="btn btn-outline-secondary prev-step" data-prev="2">Back</button>
+              <div class="submit-btn">
+                <button type="submit" class="btn btn-primary px-5 py-2">Submit Request</button>
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+        <!-- Success Message (Hidden by default) -->
+        <div class="success-message" id="successMessage">
+          <i class="bi bi-check-circle-fill"></i>
+          <h3>Thank You!</h3>
+          <p>Your quote request has been submitted successfully. We'll get back to you within 24 hours.</p>
+          <a href="index.html" class="btn btn-primary mt-3">Return to Homepage</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">Helana.com Printers</span>
+          </a>
+          <p>Your trusted printing partner in Anuradhapura since 1994. We offer comprehensive printing solutions with a
+            focus on quality, customer satisfaction, and community support.</p>
+          <div class="social-links d-flex mt-4">
+            <a href="https://www.facebook.com/helanaprinterspvtltd/"><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About us</a></li>
+            <li><a href="service-details.html">Services</a></li>
+            <li><a href="index.html#portfolio">Portfolio</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="service-details.html">Printouts</a></li>
+            <li><a href="service-details.html">Hard binding</a></li>
+            <li><a href="service-details.html">UV printing</a></li>
+            <li><a href="service-details.html">Mug printing</a></li>
+            <li><a href="service-details.html">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>Helana.com Printers</p>
+          <p>Bank Side</p>
+          <p>Anuradhapura</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>0711414103</span></p>
+          <p><strong>Email:</strong> <span>helana.com@gmail.com</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Helana.com Printers</strong> <span>All Rights
+          Reserved</span></p>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Improved Script for form functionality -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const printType = document.getElementById('printType');
+      const bookOrderFields = document.getElementById('bookOrderFields');
+      const bookOrderBindingFields = document.getElementById('bookOrderBindingFields');
+      const formSteps = document.querySelectorAll('.form-step');
+      const progressSteps = document.querySelectorAll('.progress-step');
+      const nextButtons = document.querySelectorAll('.next-step');
+      const prevButtons = document.querySelectorAll('.prev-step');
+      const form = document.getElementById('quoteForm');
+      const successMessage = document.getElementById('successMessage');
+      const reviewContent = document.getElementById('reviewContent');
+
+      // Show/hide extra fields based on print type selection
+      printType.addEventListener('change', function () {
+        bookOrderFields.classList.remove('active');
+        bookOrderBindingFields.classList.remove('active');
+
+        if (this.value === 'book order') {
+          bookOrderFields.classList.add('active');
+        } else if (this.value === 'book order+binding') {
+          bookOrderBindingFields.classList.add('active');
+        }
+      });
+
+      // Form navigation
+      nextButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const currentStep = document.querySelector('.form-step.active');
+          const nextStepId = this.getAttribute('data-next');
+          const nextStep = document.getElementById(`step${nextStepId}`);
+
+          // Validate current step before proceeding
+          if (validateStep(currentStep.id)) {
+            // Update progress indicator
+            updateProgressIndicator(nextStepId);
+
+            // Move to next step
+            currentStep.classList.remove('active');
+            nextStep.classList.add('active');
+
+            // If moving to review step, populate the review
+            if (nextStepId === '3') {
+              populateReview();
+            }
+          }
+        });
+      });
+
+      prevButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const currentStep = document.querySelector('.form-step.active');
+          const prevStepId = this.getAttribute('data-prev');
+          const prevStep = document.getElementById(`step${prevStepId}`);
+
+          // Update progress indicator
+          updateProgressIndicator(prevStepId, false);
+
+          // Move to previous step
+          currentStep.classList.remove('active');
+          prevStep.classList.add('active');
+        });
+      });
+
+      // Update progress indicator
+      function updateProgressIndicator(stepId, isForward = true) {
+        progressSteps.forEach(step => {
+          const stepNumber = step.getAttribute('data-step');
+          if (stepNumber === stepId) {
+            step.classList.add('active');
+          } else if (isForward && parseInt(stepNumber) > parseInt(stepId)) {
+            step.classList.remove('active');
+          }
+        });
+      }
+
+      // Validate form step
+      function validateStep(stepId) {
+        const step = document.getElementById(stepId);
+        const inputs = step.querySelectorAll('input[required], select[required], textarea[required]');
+        let isValid = true;
+
+        inputs.forEach(input => {
+          if (!input.value) {
+            input.classList.add('is-invalid');
+            isValid = false;
+          } else {
+            input.classList.remove('is-invalid');
+          }
+        });
+
+        return isValid;
+      }
+
+      // Populate review section
+      function populateReview() {
+        const formData = new FormData(form);
+        let reviewHTML = '<div class="row">';
+
+        // Project details
+        reviewHTML += '<div class="col-md-6">';
+        reviewHTML += '<p><strong>Print Type:</strong> ' + (printType.options[printType.selectedIndex].text || 'Not specified') + '</p>';
+
+        // Show relevant extra fields in review
+        if (printType.value === 'book order') {
+          const pageSizing = document.getElementById('pageSizing');
+          const noOfPages = document.getElementById('noOfPages');
+          reviewHTML += '<p><strong>Page Size:</strong> ' + (pageSizing.options[pageSizing.selectedIndex].text || 'Not specified') + '</p>';
+          reviewHTML += '<p><strong>Number of Pages:</strong> ' + (noOfPages.value || 'Not specified') + '</p>';
+        } else if (printType.value === 'book order+binding') {
+          const pageSizingBinding = document.getElementById('pageSizingBinding');
+          const noOfPagesBinding = document.getElementById('noOfPagesBinding');
+          const bindingType = document.getElementById('bindingType');
+          reviewHTML += '<p><strong>Page Size:</strong> ' + (pageSizingBinding.options[pageSizingBinding.selectedIndex].text || 'Not specified') + '</p>';
+          reviewHTML += '<p><strong>Number of Pages:</strong> ' + (noOfPagesBinding.value || 'Not specified') + '</p>';
+          reviewHTML += '<p><strong>Binding Type:</strong> ' + (bindingType.options[bindingType.selectedIndex].text || 'Not specified') + '</p>';
+        }
+
+        reviewHTML += '<p><strong>Quantity:</strong> ' + (document.getElementById('quantity').value || 'Not specified') + '</p>';
+        reviewHTML += '<p><strong>Purpose:</strong> ' + (document.getElementById('purpose').options[document.getElementById('purpose').selectedIndex].text || 'Not specified') + '</p>';
+        reviewHTML += '</div>';
+
+        // Contact details
+        reviewHTML += '<div class="col-md-6">';
+        reviewHTML += '<p><strong>Name:</strong> ' + (document.getElementById('name').value || 'Not specified') + '</p>';
+        reviewHTML += '<p><strong>Email:</strong> ' + (document.getElementById('email').value || 'Not specified') + '</p>';
+        reviewHTML += '<p><strong>Phone:</strong> ' + (document.getElementById('phone').value || 'Not specified') + '</p>';
+        reviewHTML += '<p><strong>Contact Method:</strong> ' + (document.getElementById('contactMethod').options[document.getElementById('contactMethod').selectedIndex].text || 'Not specified') + '</p>';
+        reviewHTML += '</div>';
+
+        // Additional details
+        const message = document.getElementById('message').value;
+        if (message) {
+          reviewHTML += '<div class="col-12 mt-3">';
+          reviewHTML += '<p><strong>Additional Details:</strong></p>';
+          reviewHTML += '<p class="bg-white p-2 rounded">' + message + '</p>';
+          reviewHTML += '</div>';
+        }
+
+        reviewHTML += '</div>';
+        reviewContent.innerHTML = reviewHTML;
+      }
+
+      // Form submission
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // In a real implementation, you would send the form data to the server here
+        // For demonstration, we'll just show the success message
+
+        // Hide form and show success message
+        form.style.display = 'none';
+        successMessage.style.display = 'block';
+
+        // You would typically submit the form via AJAX here
+        // For example:
+        /*
+        fetch('send-quote.php', {
+          method: 'POST',
+          body: new FormData(form)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
+          } else {
+            alert('There was an error submitting your request. Please try again.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('There was an error submitting your request. Please try again.');
+        });
+        */
+      });
+    });
+  </script>
+
+</body>
+
+</html>
