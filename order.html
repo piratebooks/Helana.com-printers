@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Track Your Order | Helana.com Printers</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/helanalogo.png" rel="icon">
+  <link href="assets/img/helanalogo.webp" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  
+  <!-- Track Order Specific CSS -->
+  <link href="assets/css/track-order.css" rel="stylesheet">
+</head>
+
+<body class="track-order-page">
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <img src="assets/img/helanalogo.png" alt="Helana.com Printers Logo" style="height: 40px; margin-right: 10px;">
+        <h1 class="sitename">Helana.com Printers</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="service-details.html">Services</a></li>
+          <li><a href="index.html#portfolio">Portfolio</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="#" class="active">Track Your Order</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="quote.html">Get a Quote</a>
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title accent-background">
+      <div class="container">
+        <h1>Track Your Order</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Track Your Order</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Track Order Section -->
+    <section id="track-order-section" class="section">
+      <div class="container" data-aos="fade-up">
+        <p class="text-center mb-4">Enter your 12-digit order reference number below</p>
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <form id="trackOrderForm" class="track-order-form">
+              <div class="mb-4">
+                <label for="orderId" class="form-label">Order Reference Number</label>
+                <input type="text" class="form-control" id="orderId" placeholder="HEL123456789" maxlength="12"
+                  pattern="^HEL\d{9}$" required>
+                <div class="help-text">Your order reference number starts with "HEL" followed by 9 digits</div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-search me-2"></i>Track Order
+                </button>
+              </div>
+            </form>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="loading-spinner">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <p class="mt-2">Searching for your order...</p>
+            </div>
+
+            <!-- Order Result -->
+            <div id="orderResult" class="order-result">
+              <!-- Content will be dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Track Order Section -->
+
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">Helana.com Printers</span>
+          </a>
+          <p>Your trusted printing partner in Anuradhapura since 1994. We offer comprehensive printing solutions with a
+            focus on quality, customer satisfaction and community support.</p>
+          <div class="social-links d-flex mt-4">
+            <a href="https://www.facebook.com/helanaprinterspvtltd/"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About us</a></li>
+            <li><a href="service-details.html">Services</a></li>
+            <li><a href="index.html#portfolio">Portfolio</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="service-details.html">Printouts</a></li>
+            <li><a href="service-details.html">Hard binding</a></li>
+            <li><a href="service-details.html">UV printing</a></li>
+            <li><a href="service-details.html">Mug printing</a></li>
+            <li><a href="service-details.html">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>Helana.com Printers</p>
+          <p>Bank Side</p>
+          <p>Anuradhapura</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>0711414103</span></p>
+          <p><strong>Email:</strong> <span>helana.com@gmail.com</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Helana.com Printers</strong> <span>All Rights
+          Reserved</span></p>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+  
+  <!-- Track Order Specific JS -->
+  <script src="assets/js/track-order.js"></script>
+</body>
+
+</html>
