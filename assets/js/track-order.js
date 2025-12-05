@@ -162,20 +162,30 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Display order not found
-  function displayOrderNotFound(orderId) {
-    resultDiv.className = "order-result card p-4 mt-4 shadow-sm";
-    resultDiv.innerHTML = `
-      <div class="order-not-found">
-        <i class="bi bi-exclamation-triangle"></i>
-        <h5>Order Not Found</h5>
-        <p>We couldn't find an order with reference number <strong class="text-dark">${orderId}</strong>.</p>
-        <p class="text-muted">Please check the number and try again, or contact us if you believe this is an error.</p>
-        <button class="btn btn-outline-primary mt-3" onclick="document.getElementById('orderId').focus()">
-          <i class="bi bi-arrow-repeat me-2"></i>Try Again
-        </button>
-      </div>
-    `;
-  }
+ // Display order not found
+function displayOrderNotFound(orderId) {
+  resultDiv.className = "order-result card p-4 mt-4 shadow-sm";
+  resultDiv.innerHTML = `
+    <div class="order-not-found text-center">
+      <i class="bi bi-exclamation-triangle fs-1 text-warning mb-3"></i>
+      <h5>Order Not Found</h5>
+      <p>We couldn't find an order with reference number <strong class="text-dark">${orderId}</strong>.</p>
+      <p class="text-muted">Please check the number and try again, or contact us if you believe this is an error.</p>
+      <button class="btn btn-outline-primary mt-3" id="retryButton">
+        <i class="bi bi-arrow-repeat me-2"></i>Try Again
+      </button>
+    </div>
+  `;
+
+  // Add event listener to the button after it's rendered
+  const retryButton = document.getElementById('retryButton');
+  retryButton.addEventListener('click', function() {
+    orderIdInput.value = '';
+    orderIdInput.focus();
+    resultDiv.style.display = 'none'; // hide previous result
+  });
+}
+
 
   // Add input formatting for better UX
   orderIdInput.addEventListener('input', function(e) {

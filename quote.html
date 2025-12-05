@@ -3,16 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Request a personalized printing quote from Helana.com Printers. Fast, professional printing services in Anuradhapura.">
+  <meta name="keywords" content="printing quote, Helana printers, book printing, UV printing, binding services">
   <title>Request a Quote | Helana.com Printers</title>
 
   <!-- Favicons -->
   <link href="assets/img/helanalogo.png" rel="icon">
-  <link href="assets/img/helanalogo.webp" rel="apple-touch-icon">
+  <link href="assets/img/helanalogo.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Fonts with display=swap for better performance -->
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
@@ -35,11 +40,11 @@
 
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="index.html" class="logo d-flex align-items-center me-auto" aria-label="Helana.com Printers Home">
         <h1 class="sitename">Helana.com Printers</h1>
       </a>
 
-      <nav id="navmenu" class="navmenu">
+      <nav id="navmenu" class="navmenu" aria-label="Main navigation">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="index.html#about">About</a></li>
@@ -47,11 +52,10 @@
           <li><a href="index.html#portfolio">Portfolio</a></li>
           <li><a href="index.html#contact">Contact</a></li>
           <li><a href="order.html">Track your order </a></li>
-
         </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list" aria-label="Toggle navigation"></i>
       </nav>
-      <a class="btn-getstarted" href="#">Get a Quote</a>
+      <a class="btn-getstarted" href="#request-quote" aria-label="Get a Quote">Get a Quote</a>
     </div>
   </header>
 
@@ -61,7 +65,7 @@
     <div class="page-title accent-background">
       <div class="container">
         <h1>Request a quote here!</h1>
-        <nav class="breadcrumbs">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
           <ol>
             <li><a href="index.html">Home</a></li>
             <li class="current">Quotation page</li>
@@ -72,7 +76,7 @@
 
     <!-- Request a Quote Section -->
     <section id="request-quote" class="request-quote section">
-      <div class="container" data-aos="fade-up">
+      <div class="container" data-aos="fade-up" data-aos-duration="800">
 
         <div class="section-header text-center mb-5">
           <h2>Request a Quote</h2>
@@ -80,7 +84,7 @@
         </div>
 
         <!-- Progress Indicator -->
-        <div class="progress-indicator">
+        <div class="progress-indicator" role="progressbar" aria-label="Form progress">
           <div class="progress-step active" data-step="1">
             <div class="step-number">1</div>
             <div class="step-label">Project Details</div>
@@ -96,7 +100,7 @@
         </div>
 
         <form id="quoteForm" action="send-quote.php" method="POST" enctype="multipart/form-data"
-          class="php-email-form p-4 rounded shadow-sm bg-light">
+          class="php-email-form p-4 rounded shadow-sm bg-light" novalidate>
 
           <!-- Step 1: Project Details -->
           <div class="form-step active" id="step1">
@@ -105,7 +109,7 @@
 
               <div class="mb-4">
                 <label for="printType" class="form-label required">Type of Print</label>
-                <select id="printType" name="printType" class="form-select" required>
+                <select id="printType" name="printType" class="form-select" required aria-required="true">
                   <option value="" selected disabled>Choose a print type...</option>
                   <option value="book order">Book Order</option>
                   <option value="book order+binding">Book Order + Binding</option>
@@ -122,10 +126,11 @@
                   <option value="typesetting">Typesetting</option>
                 </select>
                 <div class="help-text">Select the type of printing service you need</div>
+                <div class="invalid-feedback">Please select a print type</div>
               </div>
 
               <!-- Book Order Extra Fields -->
-              <div id="bookOrderFields" class="extra-fields">
+              <div id="bookOrderFields" class="extra-fields" aria-hidden="true">
                 <div class="form-grid">
                   <div>
                     <label for="pageSizing" class="form-label">Page Sizing</label>
@@ -149,7 +154,7 @@
               </div>
 
               <!-- Book Order + Binding Extra Fields -->
-              <div id="bookOrderBindingFields" class="extra-fields">
+              <div id="bookOrderBindingFields" class="extra-fields" aria-hidden="true">
                 <div class="form-grid">
                   <div>
                     <label for="pageSizingBinding" class="form-label">Page Sizing</label>
@@ -175,7 +180,6 @@
                       <option value="soft">Soft Binding</option>
                       <option value="hard">Hard Binding</option>
                       <option value="none">No Binding</option>
-
                     </select>
                   </div>
                 </div>
@@ -185,12 +189,13 @@
                 <div>
                   <label for="quantity" class="form-label required">Quantity</label>
                   <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Enter quantity"
-                    min="1" required>
+                    min="1" required aria-required="true">
                   <div class="help-text">How many copies do you need?</div>
+                  <div class="invalid-feedback">Please enter a quantity</div>
                 </div>
                 <div>
                   <label for="purpose" class="form-label required">Purpose</label>
-                  <select id="purpose" name="purpose" class="form-select" required>
+                  <select id="purpose" name="purpose" class="form-select" required aria-required="true">
                     <option value="" selected disabled>Choose purpose...</option>
                     <option value="education">Education/School</option>
                     <option value="business">Business/Corporate</option>
@@ -201,6 +206,7 @@
                     <option value="event">Event/Wedding</option>
                     <option value="other">Other</option>
                   </select>
+                  <div class="invalid-feedback">Please select a purpose</div>
                 </div>
               </div>
             </div>
@@ -211,26 +217,31 @@
                 <label for="message" class="form-label required">Additional Details</label>
                 <textarea id="message" name="message" rows="5" class="form-control"
                   placeholder="Describe your requirements, specifications, deadlines, or any special instructions..."
-                  required></textarea>
+                  required aria-required="true"></textarea>
                 <div class="help-text">The more details you provide, the more accurate our quote will be</div>
+                <div class="invalid-feedback">Please provide additional details</div>
               </div>
             </div>
 
             <!-- File upload field -->
-            <div class="form-section" style="display: block !important;">
+            <div class="form-section">
               <h3>File Attachments</h3>
               <div class="mb-3">
                 <label for="attachments" class="form-label">Upload Files</label>
                 <input type="file" name="attachments[]" id="attachments" class="form-control" multiple
-                  style="display: block !important;">
+                  accept="image/*,.pdf,.doc,.docx">
                 <small class="form-text text-muted">You can select multiple files (images, documents, designs) to help
                   us provide a more accurate quote.</small>
+                <div id="fileList" class="file-list mt-2"></div>
               </div>
             </div>
 
             <div class="form-navigation">
               <div></div> <!-- Empty div for spacing -->
-              <button type="button" class="btn btn-primary next-step" data-next="2">Next: Contact Info</button>
+              <button type="button" class="btn btn-primary next-step" data-next="2">
+                Next: Contact Info
+                <i class="bi bi-arrow-right ms-2"></i>
+              </button>
             </div>
           </div>
 
@@ -241,33 +252,45 @@
               <div class="form-grid">
                 <div>
                   <label for="name" class="form-label required">Name</label>
-                  <input type="text" id="name" name="name" class="form-control" placeholder="Anita Ranasinghe" required>
+                  <input type="text" id="name" name="name" class="form-control" placeholder="Anita Ranasinghe" required
+                    aria-required="true">
+                  <div class="invalid-feedback">Please enter your name</div>
                 </div>
                 <div>
                   <label for="email" class="form-label required">Email</label>
                   <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com"
-                    required>
+                    required aria-required="true">
+                  <div class="invalid-feedback">Please enter a valid email address</div>
                 </div>
                 <div>
                   <label for="phone" class="form-label required">Phone Number</label>
-                  <input type="tel" id="phone" name="phone" class="form-control" placeholder="+94 711 414 103" required>
+                  <input type="tel" id="phone" name="phone" class="form-control" placeholder="+94 711 414 103" required
+                    aria-required="true">
+                  <div class="invalid-feedback">Please enter your phone number</div>
                 </div>
                 <div>
                   <label for="contactMethod" class="form-label required">Preferred Method of Contact</label>
-                  <select id="contactMethod" name="contactMethod" class="form-select" required>
+                  <select id="contactMethod" name="contactMethod" class="form-select" required aria-required="true">
                     <option value="" selected disabled>Choose contact method...</option>
                     <option value="email">Email</option>
                     <option value="phone">Phone</option>
                     <option value="whatsapp">WhatsApp</option>
                     <option value="sms">SMS</option>
                   </select>
+                  <div class="invalid-feedback">Please select a contact method</div>
                 </div>
               </div>
             </div>
 
             <div class="form-navigation">
-              <button type="button" class="btn btn-outline-secondary prev-step" data-prev="1">Back</button>
-              <button type="button" class="btn btn-primary next-step" data-next="3">Next: Review & Submit</button>
+              <button type="button" class="btn btn-outline-secondary prev-step" data-prev="1">
+                <i class="bi bi-arrow-left me-2"></i>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary next-step" data-next="3">
+                Next: Review & Submit
+                <i class="bi bi-arrow-right ms-2"></i>
+              </button>
             </div>
           </div>
 
@@ -280,8 +303,8 @@
                 </p>
               </div>
 
-              <div class="review-summary p-3 bg-light rounded mb-4">
-                <h5>Project Summary</h5>
+              <div class="review-summary p-3 bg-white rounded mb-4 shadow-sm">
+                <h5 class="mb-3">Project Summary</h5>
                 <div id="reviewContent"></div>
               </div>
 
@@ -289,16 +312,22 @@
                 <input class="form-check-input" type="checkbox" id="agreeTerms" required>
                 <label class="form-check-label" for="agreeTerms">
                   I agree to the <a href="terms.html" target="_blank">terms and conditions</a> and understand that this
-                  is a
-                  quote request, not an order.
+                  is a quote request, not an order.
                 </label>
+                <div class="invalid-feedback">You must agree to the terms and conditions</div>
               </div>
             </div>
 
             <div class="form-navigation">
-              <button type="button" class="btn btn-outline-secondary prev-step" data-prev="2">Back</button>
+              <button type="button" class="btn btn-outline-secondary prev-step" data-prev="2">
+                <i class="bi bi-arrow-left me-2"></i>
+                Back
+              </button>
               <div class="submit-btn">
-                <button type="submit" class="btn btn-primary px-5 py-2">Submit Request</button>
+                <button type="submit" class="btn btn-primary px-5 py-2">
+                  <i class="bi bi-send me-2"></i>
+                  Submit Request
+                </button>
               </div>
             </div>
           </div>
@@ -306,7 +335,7 @@
         </form>
 
         <!-- Success Message (Hidden by default) -->
-        <div class="success-message" id="successMessage">
+        <div class="success-message" id="successMessage" role="alert">
           <i class="bi bi-check-circle-fill"></i>
           <h3>Thank You!</h3>
           <p>Your quote request has been submitted successfully. We'll get back to you within 24 hours.</p>
@@ -329,8 +358,10 @@
           <p>Your trusted printing partner in Anuradhapura since 2001. We offer comprehensive printing solutions with a
             focus on quality, customer satisfaction and community support.</p>
           <div class="social-links d-flex mt-4">
-            <a href="https://www.facebook.com/helanaprinterspvtltd/"><i class="bi bi-facebook"></i></a>
-            <a href="https://www.instagram.com/helana.com_printers/"><i class="bi bi-instagram"></i></a>
+            <a href="https://www.facebook.com/helanaprinterspvtltd/" aria-label="Facebook"><i
+                class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/helana.com_printers/" aria-label="Instagram"><i
+                class="bi bi-instagram"></i></a>
           </div>
         </div>
 
@@ -375,8 +406,8 @@
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"
+    aria-label="Scroll to top"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
   <div id="preloader"></div>
@@ -393,9 +424,8 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-
-  <script src="assets/js/quote.js"></script>
+  <script src="assets/js/quote.js"> </script>
 
 </body>
 
-<html>
+</html>

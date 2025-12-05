@@ -1,4 +1,4 @@
-// Improved Script for form functionality
+// Improved Script for form functionality with enhanced validation
 document.addEventListener('DOMContentLoaded', function () {
   const printType = document.getElementById('printType');
   const bookOrderFields = document.getElementById('bookOrderFields');
@@ -74,20 +74,61 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Validate form step
+  // Validate form step with enhanced checks
   function validateStep(stepId) {
     const step = document.getElementById(stepId);
     const inputs = step.querySelectorAll('input[required], select[required], textarea[required]');
     let isValid = true;
 
     inputs.forEach(input => {
-      if (!input.value) {
+      const value = input.value.trim();
+
+      // Reset previous invalid states
+      input.classList.remove('is-invalid');
+
+      // Check required fields
+      if (!value) {
         input.classList.add('is-invalid');
         isValid = false;
-      } else {
-        input.classList.remove('is-invalid');
+        return;
+      }
+
+      // Extra validation by type or ID
+      if (input.type === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          input.classList.add('is-invalid');
+          isValid = false;
+        }
+      } else if (input.type === 'tel') {
+        const phoneRegex = /^[0-9+\-()\s]{7,20}$/; // Basic phone validation
+        if (!phoneRegex.test(value)) {
+          input.classList.add('is-invalid');
+          isValid = false;
+        }
+      } else if (input.type === 'number') {
+        if (isNaN(value) || parseInt(value) <= 0) {
+          input.classList.add('is-invalid');
+          isValid = false;
+        }
+      } else if (input.id === 'message') {
+        if (value.length > 500) { // Optional max length for message
+          input.classList.add('is-invalid');
+          isValid = false;
+        }
       }
     });
+
+    // Conditional validation: bindingType required only for 'book order+binding'
+    if (printType.value === 'book order+binding') {
+      const bindingType = document.getElementById('bindingType');
+      if (!bindingType.value) {
+        bindingType.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        bindingType.classList.remove('is-invalid');
+      }
+    }
 
     return isValid;
   }
@@ -145,15 +186,24 @@ document.addEventListener('DOMContentLoaded', function () {
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    // In a real implementation, you would send the form data to the server here
-    // For demonstration, we'll just show the success message
+    // Validate all steps before submission (optional)
+    let allValid = true;
+    formSteps.forEach(step => {
+      if (!validateStep(step.id)) {
+        allValid = false;
+      }
+    });
+
+    if (!allValid) {
+      alert('Please fix the errors in the form before submitting.');
+      return;
+    }
 
     // Hide form and show success message
     form.style.display = 'none';
     successMessage.style.display = 'block';
 
-    // You would typically submit the form via AJAX here
-    // For example:
+    // Example AJAX submission (optional)
     /*
     fetch('send-quote.php', {
       method: 'POST',

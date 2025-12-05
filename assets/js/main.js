@@ -6,7 +6,7 @@
 * License: https://bootstrapmade.com/license/
 */
 
-(function() {
+(function () {
   "use strict";
 
   /**
@@ -50,7 +50,7 @@
    * Toggle mobile nav dropdowns
    */
   document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
+    navmenu.addEventListener('click', function (e) {
       e.preventDefault();
       this.parentNode.classList.toggle('active');
       this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
@@ -119,7 +119,7 @@
    * Init swiper sliders
    */
   function initSwiper() {
-    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+    document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
       let config = JSON.parse(
         swiperElement.querySelector(".swiper-config").innerHTML.trim()
       );
@@ -137,13 +137,13 @@
   /**
    * Init isotope layout and filters
    */
-  document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
+  document.querySelectorAll('.isotope-layout').forEach(function (isotopeItem) {
     let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
     let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
     let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
     let initIsotope;
-    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function() {
+    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function () {
       initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
         itemSelector: '.isotope-item',
         layoutMode: layout,
@@ -152,8 +152,8 @@
       });
     });
 
-    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
-      filters.addEventListener('click', function() {
+    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function (filters) {
+      filters.addEventListener('click', function () {
         isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
         this.classList.add('filter-active');
         initIsotope.arrange({
@@ -175,44 +175,44 @@
       faqItem.parentNode.classList.toggle('faq-active');
     });
   });
-  
-  // Add this to your validateStep function
-function validateStep(stepId) {
-  const step = document.getElementById(stepId);
-  const inputs = step.querySelectorAll('input[required], select[required], textarea[required]');
-  let isValid = true;
-  
-  inputs.forEach(input => {
-    if (!input.value) {
-      input.classList.add('is-invalid');
-      isValid = false;
-    } else {
-      input.classList.remove('is-invalid');
-    }
-  });
-  
-  return isValid;
-}
 
-// Add file validation if needed
-function validateFiles() {
-  const fileInput = document.getElementById('attachments');
-  const files = fileInput.files;
-  
-  // Example: Check file sizes
-  for (let i = 0; i < files.length; i++) {
-    if (files[i].size > 10 * 1024 * 1024) { // 10MB limit
-      alert('File ' + files[i].name + ' is too large. Maximum size is 10MB.');
-      return false;
-    }
+  // Add this to your validateStep function
+  function validateStep(stepId) {
+    const step = document.getElementById(stepId);
+    const inputs = step.querySelectorAll('input[required], select[required], textarea[required]');
+    let isValid = true;
+
+    inputs.forEach(input => {
+      if (!input.value) {
+        input.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        input.classList.remove('is-invalid');
+      }
+    });
+
+    return isValid;
   }
-  return true;
-}
+
+  // Add file validation if needed
+  function validateFiles() {
+    const fileInput = document.getElementById('attachments');
+    const files = fileInput.files;
+
+    // Example: Check file sizes
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].size > 10 * 1024 * 1024) { // 10MB limit
+        alert('File ' + files[i].name + ' is too large. Maximum size is 10MB.');
+        return false;
+      }
+    }
+    return true;
+  }
 
   /**
    * Correct scrolling position upon page load for URLs containing hash links.
    */
-  window.addEventListener('load', function(e) {
+  window.addEventListener('load', function (e) {
     if (window.location.hash) {
       if (document.querySelector(window.location.hash)) {
         setTimeout(() => {
