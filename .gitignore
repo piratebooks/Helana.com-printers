@@ -1,0 +1,10 @@
+/vendor/
+/.env
+config.php
+.idea/
+.vscode/
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
