@@ -1,6 +1,6 @@
 /vendor/
 /.env
-config.php
+/config.php
 .idea/
 .vscode/
 *.log

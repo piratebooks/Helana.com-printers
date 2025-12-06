@@ -13,9 +13,10 @@ define('DB_NAME', 'helana_printers');
 // Set timezone
 date_default_timezone_set('Asia/Colombo');
 
-// Error reporting (set to 0 in production)
+// Error reporting - TURN OFF display_errors for API production
+// Displaying errors breaks JSON responses
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0); // Changed to 0 to prevent breaking JSON
 
 /**
  * Get database connection
@@ -26,14 +27,18 @@ function getDBConnection() {
     
     // Check connection
     if ($conn->connect_error) {
+        // Log the error instead of showing it
+        error_log("Connection failed: " . $conn->connect_error);
+        
+        // Return JSON error and stop
         die(json_encode([
             'success' => false,
-            'error' => 'Database connection failed: ' . $conn->connect_error
+            'error' => 'Database connection failed'
         ]));
     }
     
-    // Set charset to utf8
-    $conn->set_charset("utf8");
+    // Set charset to utf8mb4 for full character support
+    $conn->set_charset("utf8mb4");
     
     return $conn;
 }

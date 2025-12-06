@@ -5,8 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const loadingSpinner = document.getElementById("loadingSpinner");
   const orderIdInput = document.getElementById("orderId");
 
-  // API endpoint URL - adjust this if your XAMPP is on a different port
-  const API_URL = 'http://localhost/Helana%20Printers%20(Pvt)%20Ltd/api/get_order.php';
+  // API endpoint URL
+  // API endpoint URL - using relative path to work in any folder
+  const API_URL = 'api/track_order.php';
 
   // Form submission handler
   form.addEventListener("submit", function (e) {
@@ -32,20 +33,27 @@ document.addEventListener('DOMContentLoaded', function () {
     orderIdInput.focus();
   }
 
-  // Track order function - now using real API
+  // Track order function
   function trackOrder(orderId) {
     // Show loading spinner
     loadingSpinner.style.display = "block";
     resultDiv.style.display = "none";
 
-    // Make API call to fetch order details
-    fetch(`${API_URL}?order_ref=${encodeURIComponent(orderId)}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())
+    // Fetch order details — NO HEADERS (prevents CORS issues)
+    fetch(`${API_URL}?order_ref=${encodeURIComponent(orderId)}`)
+      .then(response => {
+        // If 404, it might still return JSON with error details
+        if (response.status === 404) {
+          return response.json();
+        }
+
+        if (!response.ok) {
+          return response.text().then(text => {
+            throw new Error(`Server Error: ${response.status} - ${text.substring(0, 200)}`);
+          });
+        }
+        return response.json();
+      })
       .then(data => {
         loadingSpinner.style.display = "none";
 
@@ -60,12 +68,12 @@ document.addEventListener('DOMContentLoaded', function () {
       .catch(error => {
         loadingSpinner.style.display = "none";
         console.error('Error fetching order:', error);
-        displayError('Failed to connect to the server. Please make sure XAMPP is running and try again.');
+        displayError(error.message || 'Failed to connect to the server.');
         resultDiv.style.display = "block";
       });
   }
 
-  // Display order details from API response
+  // Display order details
   function displayOrderDetails(order) {
     // Format the order date
     const orderDate = new Date(order.order_date);
@@ -75,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
       day: 'numeric'
     });
 
-    // Format estimated completion date if available
+    // Format estimated completion date
     let estimatedCompletion = 'Not specified';
     if (order.estimated_completion) {
       const estDate = new Date(order.estimated_completion);
@@ -156,8 +164,8 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="mt-4 p-3 bg-light rounded">
         <p class="text-muted mb-0">
           <i class="bi bi-info-circle me-2"></i>
-          If you have any questions about your order, please contact us at 
-          <strong>0711414103</strong> or visit our premises.
+          For questions about your order, call <strong>0711414103</strong>
+          or visit our premises.
         </p>
       </div>
     `;
@@ -170,18 +178,15 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="order-not-found text-center">
         <i class="bi bi-exclamation-triangle fs-1 text-warning mb-3"></i>
         <h5>Order Not Found</h5>
-        <p>We couldn't find an order with reference number <strong class="text-dark">${orderId}</strong>.</p>
-        <p class="text-muted">Please check the number and try again, or contact us if you believe this is an error.</p>
+        <p>We couldn't find an order with reference <strong>${orderId}</strong>.</p>
         ${errorMessage ? `<p class="text-danger small">${errorMessage}</p>` : ''}
         <button class="btn btn-outline-primary mt-3" id="retryButton">
-          <i class="bi bi-arrow-repeat me-2"></i>Try Again
+          <i class="bi bi-arrow-repeat me-2"></i> Try Again
         </button>
       </div>
     `;
 
-    // Add event listener to the button after it's rendered
-    const retryButton = document.getElementById('retryButton');
-    retryButton.addEventListener('click', function () {
+    document.getElementById('retryButton').addEventListener('click', () => {
       orderIdInput.value = '';
       orderIdInput.focus();
       resultDiv.style.display = 'none';
@@ -197,22 +202,20 @@ document.addEventListener('DOMContentLoaded', function () {
         <h5>Connection Error</h5>
         <p class="text-muted">${message}</p>
         <button class="btn btn-outline-primary mt-3" id="retryButton">
-          <i class="bi bi-arrow-repeat me-2"></i>Try Again
+          <i class="bi bi-arrow-repeat me-2"></i> Try Again
         </button>
       </div>
     `;
 
-    const retryButton = document.getElementById('retryButton');
-    retryButton.addEventListener('click', function () {
+    document.getElementById('retryButton').addEventListener('click', () => {
       orderIdInput.value = '';
       orderIdInput.focus();
       resultDiv.style.display = 'none';
     });
   }
 
-  // Add input formatting for better UX
+  // Auto-uppercase the input
   orderIdInput.addEventListener('input', function (e) {
-    let value = e.target.value.toUpperCase();
-    e.target.value = value;
+    e.target.value = e.target.value.toUpperCase();
   });
 });

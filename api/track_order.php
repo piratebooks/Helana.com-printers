@@ -1,22 +1,22 @@
 <?php
 /**
- * Get Order API Endpoint
+ * Track Order API Endpoint
  * Retrieves order details by order reference number
  */
 
-// Enable CORS for local development
+// Enable CORS
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
-
-// Include database configuration
-require_once 'config.php';
 
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
+
+// Include database connection
+require_once 'config.php';
 
 // Only allow GET and POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' && $_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -51,7 +51,7 @@ if (empty($orderRef)) {
     ], 400);
 }
 
-// Validate format (HEL followed by 9 digits)
+// Validate format (HEL followed by 9 digits) - matching the HTML pattern
 if (!preg_match('/^HEL\d{9}$/', $orderRef)) {
     sendJSONResponse([
         'success' => false,
@@ -62,8 +62,8 @@ if (!preg_match('/^HEL\d{9}$/', $orderRef)) {
 // Get database connection
 $conn = getDBConnection();
 
-// Prepare SQL statement to prevent SQL injection
-$stmt = $conn->prepare("SELECT 
+// Prepare SQL statement
+$sql = "SELECT 
     id,
     order_ref,
     customer_name,
@@ -76,12 +76,15 @@ $stmt = $conn->prepare("SELECT
     notes,
     created_at
 FROM orders 
-WHERE order_ref = ?");
+WHERE order_ref = ?";
+
+$stmt = $conn->prepare($sql);
 
 if (!$stmt) {
+    error_log("Prepare failed: " . $conn->error);
     sendJSONResponse([
         'success' => false,
-        'error' => 'Database query preparation failed.'
+        'error' => 'Server error: Unable to prepare query.'
     ], 500);
 }
 
@@ -90,9 +93,10 @@ $stmt->bind_param("s", $orderRef);
 
 // Execute query
 if (!$stmt->execute()) {
+    error_log("Execute failed: " . $stmt->error);
     sendJSONResponse([
         'success' => false,
-        'error' => 'Failed to execute query.'
+        'error' => 'Server error: Unable to execute query.'
     ], 500);
 }
 
@@ -128,32 +132,25 @@ $statusMap = [
         'description' => 'Your order is currently being processed'
     ],
     'In Production' => [
-        'text' => 'Finalising',
-        'icon' => 'bi bi-hourglass-split',
+        'text' => 'In Production',
+        'icon' => 'bi bi-tools', // Changed icon to tools for production
         'color' => 'text-warning',
-        'badge' => 'status-finalising',
-        'description' => 'Quality check in progress'
+        'badge' => 'status-production', // Changed badge class name
+        'description' => 'Your order is currently in production'
     ],
     'Ready for Pickup' => [
-        'text' => 'Ready for Collection',
+        'text' => 'Ready for Pickup',
         'icon' => 'bi bi-box-seam',
         'color' => 'text-success',
         'badge' => 'status-ready',
-        'description' => 'Please come to premises to collect'
+        'description' => 'Your order is ready for pickup'
     ],
     'Completed' => [
-        'text' => 'Ready for Collection',
-        'icon' => 'bi bi-box-seam',
+        'text' => 'Completed',
+        'icon' => 'bi bi-check-circle',
         'color' => 'text-success',
-        'badge' => 'status-ready',
-        'description' => 'Order completed and ready for pickup'
-    ],
-    'Out for Delivery' => [
-        'text' => 'Out for Delivery',
-        'icon' => 'bi bi-truck',
-        'color' => 'text-primary',
-        'badge' => 'status-shipped',
-        'description' => 'Sent to delivery service'
+        'badge' => 'status-completed', // Changed
+        'description' => 'Order has been completed'
     ]
 ];
 
@@ -164,8 +161,8 @@ $statusInfo = isset($statusMap[$order['status']])
         'text' => $order['status'],
         'icon' => 'bi bi-info-circle',
         'color' => 'text-info',
-        'badge' => 'status-processing',
-        'description' => 'Order status: ' . $order['status']
+        'badge' => 'status-unknown',
+        'description' => 'Status: ' . $order['status']
     ];
 
 // Format the response

@@ -1,3 +1,10 @@
+# Helana.com-printers
+My first website. Any help appreciated!
+
+Bootp template at onepage
+https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/
+
+
 Performance
 Added preconnect hints for Google Fonts and optimized font loading
 Improved semantic HTML, meta tags, and form structure
@@ -46,3 +53,14 @@ Merged track-order.css and quote.css to main.css for better readability and usab
 Updated html
 Inline styling preserved
 Converted service-details images from jpg and png to .webp for better loading
+
+2025-12-05
+Fixed the xampp bug causing the issues with tracking orders
+Addedd full Backend functionality for track-order.html
+Added full functionality for messaging in index.html
+P.S - SQL is available for use at assets\helana_printers.sql
+
+
+Upcoming:
+Add automated emails using phpmailer
+Instant quote generations and automated emailing
