@@ -60,6 +60,10 @@ Addedd full Backend functionality for track-order.html
 Added full functionality for messaging in index.html
 P.S - SQL is available for use at assets\helana_printers.sql
 
+2025 - 12-06
+Fixed up terms.html uneven sizing
+Touched up footer bar settings
+Changed inline CSS in terms.html
 
 Upcoming:
 Add automated emails using phpmailer
