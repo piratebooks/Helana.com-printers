@@ -262,6 +262,35 @@
         return;
       }
 
+      // Validate form fields for blank content (whitespace only)
+      let isValid = true;
+      let errorMessage = 'Please fill in all fields. Blank messages are not allowed.';
+
+      thisForm.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(input => {
+        if (input.value.trim() === '') {
+          isValid = false;
+          input.classList.add('is-invalid');
+        } else {
+          input.classList.remove('is-invalid');
+        }
+      });
+
+      // Specific email validation
+      const emailInput = thisForm.querySelector('input[name="email"]');
+      if (emailInput && emailInput.value.trim() !== '') {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value.trim())) {
+          isValid = false;
+          emailInput.classList.add('is-invalid');
+          errorMessage = 'Please enter a valid email address.';
+        }
+      }
+
+      if (!isValid) {
+        displayError(thisForm, errorMessage);
+        return;
+      }
+
       thisForm.querySelector('.loading').classList.add('d-block');
       thisForm.querySelector('.error-message').classList.remove('d-block');
       thisForm.querySelector('.sent-message').classList.remove('d-block');
