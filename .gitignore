@@ -3,6 +3,7 @@
 /api/config.php
 .idea/
 .vscode/
+uploads/
 *.log
 *.tmp
 *.bak

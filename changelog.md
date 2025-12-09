@@ -64,9 +64,15 @@ P.S - SQL is available for use at assets\helana_printers.sql
 Fixed up terms.html uneven sizing
 Touched up footer bar settings
 Changed inline CSS in terms.html
+
  2025 - 12 - 07 
  Lazy loading for non-critical images
- 
+
+2025 - 12 -09
+Added backend functionality + multimedia for quotaton request
+optimisation
+
 Upcoming:
 Add automated emails using phpmailer
 Instant quote generations and automated emailing
+admin panel

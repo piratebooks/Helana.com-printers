@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (this.value === 'book order') {
       bookOrderFields.classList.add('active');
-    } else if (this.value === 'book order+binding') {
+    } else if (this.value === 'book order+binding' || this.value === 'hard binding') {
       bookOrderBindingFields.classList.add('active');
     }
   });
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const nextStepId = this.getAttribute('data-next');
       const nextStep = document.getElementById(`step${nextStepId}`);
 
-      // Validate current step before proceeding
+      // Validate currentStep before proceeding
       if (validateStep(currentStep.id)) {
         // Update progress indicator
         updateProgressIndicator(nextStepId);
@@ -119,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    // Conditional validation: bindingType required only for 'book order+binding'
-    if (printType.value === 'book order+binding') {
+    // Conditional validation: bindingType required only for 'book order+binding' or 'hard binding'
+    if (printType.value === 'book order+binding' || printType.value === 'hard binding') {
       const bindingType = document.getElementById('bindingType');
       if (!bindingType.value) {
         bindingType.classList.add('is-invalid');
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const noOfPages = document.getElementById('noOfPages');
       reviewHTML += '<p><strong>Page Size:</strong> ' + (pageSizing.options[pageSizing.selectedIndex].text || 'Not specified') + '</p>';
       reviewHTML += '<p><strong>Number of Pages:</strong> ' + (noOfPages.value || 'Not specified') + '</p>';
-    } else if (printType.value === 'book order+binding') {
+    } else if (printType.value === 'book order+binding' || printType.value === 'hard binding') {
       const pageSizingBinding = document.getElementById('pageSizingBinding');
       const noOfPagesBinding = document.getElementById('noOfPagesBinding');
       const bindingType = document.getElementById('bindingType');
@@ -186,11 +186,12 @@ document.addEventListener('DOMContentLoaded', function () {
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    // Validate all steps before submission (optional)
+    // Validate all steps before submission
     let allValid = true;
     formSteps.forEach(step => {
       if (!validateStep(step.id)) {
         allValid = false;
+        // visual feedback could be added here to jump to invalid step
       }
     });
 
@@ -199,29 +200,44 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // Hide form and show success message
-    form.style.display = 'none';
-    successMessage.style.display = 'block';
+    // Show loading state
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
 
-    // Example AJAX submission (optional)
-    /*
-    fetch('send-quote.php', {
+    // Prepare FormData
+    const formData = new FormData(form);
+
+    // Send to API
+    fetch('api/quote.php', {
       method: 'POST',
-      body: new FormData(form)
+      body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        form.style.display = 'none';
-        successMessage.style.display = 'block';
-      } else {
-        alert('There was an error submitting your request. Please try again.');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('There was an error submitting your request. Please try again.');
-    });
-    */
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Hide form and show success message
+          form.style.display = 'none';
+          successMessage.style.display = 'block';
+
+          // Scroll to success message
+          successMessage.scrollIntoView({ behavior: 'smooth' });
+
+          // Optional: Reset form
+          form.reset();
+        } else {
+          throw new Error(data.message || 'Unknown error occurred');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Submission failed: ' + error.message);
+      })
+      .finally(() => {
+        // Restore button state
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      });
   });
 });
