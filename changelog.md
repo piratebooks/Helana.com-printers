@@ -72,6 +72,19 @@ Changed inline CSS in terms.html
 Added backend functionality + multimedia for quotaton request
 optimisation
 
+2025 - 12 - 13
+Removed unused vendor CSS/JS files from individual pages to improve loading speed:
+- order.html: Removed glightbox, swiper (CSS + JS) — ~85KB saved
+- quote.html: Removed glightbox, swiper, purecounter, isotope, imagesloaded (CSS + JS) — ~120KB saved
+- service-details.html: Removed glightbox, swiper, purecounter, isotope, imagesloaded, php-email-form (CSS + JS) — ~130KB saved
+- terms.html: Removed glightbox, swiper (CSS + JS) — ~85KB saved
+Total estimated savings: ~420KB across all optimized pages
+Note: index.html unchanged as it uses all vendor libraries
+
+Added resource hints to index.html for faster loading:
+- DNS prefetch for Google Maps domains (www.google.com, maps.googleapis.com)
+- Preload hints for critical above-the-fold assets (hero image, Bootstrap CSS)
+
 Upcoming:
 Add automated emails using phpmailer
 Instant quote generations and automated emailing
