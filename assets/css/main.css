@@ -2,8 +2,9 @@
 
 /* ===== Clients Carousel ===== */
 .clients .clients-carousel{overflow:hidden;}
-.clients .clients-carousel .swiper-slide{display:flex;align-items:center;justify-content:center;}
-.clients .clients-carousel .client-logo{display:flex;align-items:center;justify-content:center;padding:6px 10px;}
-.clients .clients-carousel .client-logo img{max-width:200px;max-height:110px;width:auto;height:auto;object-fit:contain;filter:none;opacity:1;transition:transform 0.3s ease;}
+.clients .clients-carousel .swiper-wrapper{align-items:center;height:140px;}
+.clients .clients-carousel .swiper-slide{display:flex;align-items:center;justify-content:center;height:140px;}
+.clients .clients-carousel .client-logo{display:flex;align-items:center;justify-content:center;height:100%;padding:6px 10px;}
+.clients .clients-carousel .client-logo img{max-width:220px;max-height:121px;width:auto;height:auto;object-fit:contain;vertical-align:middle;filter:none;opacity:1;transition:transform 0.3s ease;}
 .clients .clients-carousel .client-logo img:hover{transform:scale(1.08);}
-@media(max-width:576px){.clients .clients-carousel .client-logo img{max-width:130px;max-height:70px;}}
+@media(max-width:576px){.clients .clients-carousel .swiper-wrapper,.clients .clients-carousel .swiper-slide{height:100px;}.clients .clients-carousel .client-logo img{max-width:143px;max-height:77px;}}
